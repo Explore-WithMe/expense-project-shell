@@ -45,6 +45,7 @@ VALIDATE $? "Enable MYSQL"
 # VALIDATE $? "Set Default Root Password to MYSQL"
 
 #Below code will be useful for idempotent nature
+# Note: once root password setup we cant change it with '--set-root-pass'
 mysql -h db.step-into-iot.cloud -uroot -p${mysql_root_password} -e 'show databases;' &>>$LOGFILE
 if [ $? -ne 0 ]
 then
