@@ -1,7 +1,5 @@
 #!/bin/bash
-# check id of user ..> id ..> for root user id=0 always
 
-# chmod +x common.sh 
 source ./common.sh 
 CHECK_ROOT
 
