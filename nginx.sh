@@ -14,9 +14,6 @@ SCRIPT_NAME=$(echo $0 | cut -d "." -f1)
 TIMESTAMP=$(date +%F-%H-%M-%S)
 LOGFILE=/tmp/$SCRIPT_NAME-$TIMESTAMP.log
 
-echo "Please Enter DB Password:: "
-read -s mysql_root_password
-
 R="\e[31m"
 G="\e[32m"
 N="\e[0m"
