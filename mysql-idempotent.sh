@@ -5,9 +5,13 @@ SCRIPT_NAME=$(echo $0 | cut -d "." -f1)
 TIMESTAMP=$(date +%F-%H-%M-%S)
 LOGFILE=/tmp/$SCRIPT_NAME-$TIMESTAMP.log
 
+echo "Please Enter DB Password:: "
+read -s mysql_root_password
+
 R="\e[31m"
 G="\e[32m"
 N="\e[0m"
+Y="\e[33m"
 
 if [ $ID -ne 0 ]; 
     then
@@ -37,6 +41,15 @@ VALIDATE $? "Starting MYSQL"
 systemctl enable mysqld &>> $LOGFILE
 VALIDATE $? "Enable MYSQL"
 
-#Below code will not useful for idempotent nature
-mysql_secure_installation --set-root-pass ExpenseApp@1&>> $LOGFILE
-VALIDATE $? "Set Default Passworf to MYSQL"
+# mysql_secure_installation --set-root-pass ${mysql_root_password}&>> $LOGFILE
+# VALIDATE $? "Set Default Root Password to MYSQL"
+
+#Below code will be useful for idempotent nature
+mysql -h db.step-into-iot.cloud -uroot -p${mysql_root_password} -e 'show databases;' &>>$LOGFILE
+if [ $? -ne 0 ]
+then
+    mysql_secure_installation --set-root-pass ${mysql_root_password} &>>$LOGFILE
+    VALIDATE $? "MySQL Root password Setup"
+else
+    echo -e "MySQL Root password is already setup...$Y SKIPPING $N"
+fi
