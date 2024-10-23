@@ -23,7 +23,7 @@ check port no 8080 is running or not
 netstat -lntp
 
 check you are able to connect mysql or not
-telnet db.daws78s.online 3306
+telnet db.step-into-iot.cloud 3306
 
 check mysql data is imported
 mysql -h db.step-into-iot.cloud -u root -pExpenseApp@1
